@@ -1,0 +1,24 @@
+<form (ngSubmit)="submit()" class="row g-3">
+  <div class="col-md-6">
+    <label class="form-label">Título *</label>
+    <input class="form-control" [(ngModel)]="form.titulo" name="titulo" required>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Projeto *</label>
+    <select class="form-select" [(ngModel)]="form.idProjeto" name="idProjeto" required>
+      <option *ngFor="let p of projetos" [value]="p.id">{{ p.nome }}</option>
+    </select>
+  </div>
+  <div class="col-12">
+    <label class="form-label">Descrição</label>
+    <textarea class="form-control" rows="2" [(ngModel)]="form.descricao" name="descricao"></textarea>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Status</label>
+    <input class="form-control" [(ngModel)]="form.status" name="status" placeholder="Aberta / Concluída / ...">
+  </div>
+  <div class="col-12 d-flex align-items-center gap-2">
+    <button class="btn btn-primary" type="submit" [disabled]="saving">Salvar</button>
+    <div *ngIf="error" class="text-danger">{{ error }}</div>
+  </div>
+</form>

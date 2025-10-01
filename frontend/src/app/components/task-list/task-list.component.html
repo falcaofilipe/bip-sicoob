@@ -1,0 +1,49 @@
+<div class="row g-3 mb-3">
+  <div class="col-md-4">
+    <label class="form-label">Projeto</label>
+    <select class="form-select" [(ngModel)]="filtroProjeto" (change)="applyFilter()">
+      <option [ngValue]="undefined">Todos</option>
+      <option *ngFor="let p of projetos" [ngValue]="p.id">{{ p.nome }}</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <label class="form-label">Itens por página</label>
+    <select class="form-select" [(ngModel)]="size" (change)="applyFilter()">
+      <option [ngValue]="5">5</option>
+      <option [ngValue]="10">10</option>
+      <option [ngValue]="20">20</option>
+    </select>
+  </div>
+</div>
+
+<div *ngIf="loading">Carregando...</div>
+<div *ngIf="error" class="text-danger">{{ error }}</div>
+
+<table class="table table-sm table-striped" *ngIf="pageData && !loading">
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Projeto</th>
+      <th>Status</th>
+      <th>Data Criação</th>
+      <th style="width: 1%;">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let t of pageData.content">
+      <td>{{ t.titulo }}</td>
+      <td>{{ t.projeto?.nome }}</td>
+      <td>{{ t.status }}</td>
+      <td>{{ t.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</td>
+      <td>
+        <button class="btn btn-sm btn-outline-danger" (click)="delete(t.id)">Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="d-flex align-items-center gap-2" *ngIf="pageData">
+  <button class="btn btn-sm btn-secondary" (click)="setPage(page-1)">«</button>
+  <span>Página {{ pageData.number + 1 }} de {{ pageData.totalPages }}</span>
+  <button class="btn btn-sm btn-secondary" (click)="setPage(page+1)">»</button>
+</div>
