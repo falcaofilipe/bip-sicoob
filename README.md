@@ -1,6 +1,41 @@
 # bip-sicoob
 Teste_Tecnico_JAVA_Angular_DB2
 
+# Tecnologias utilizadas
+## Backend (Java + Spring Boot)
+
+Java 17
+
+Spring Boot 3.3.x
+
+Spring Web (REST API)
+
+Spring Data JPA (persistência)
+
+Spring Validation (Bean Validation)
+
+H2 Database em memória com MODE=DB2 (simulação compatível com DB2)
+
+Lombok (redução de boilerplate)
+
+Swagger / Springdoc OpenAPI (documentação e testes da API)
+
+Maven (build e dependências)
+
+## Frontend (Angular)
+
+Angular 16 (standalone components, moderno)
+
+TypeScript 5.x
+
+RxJS (requisições assíncronas e streams)
+
+Angular HttpClient (consumo da API REST)
+
+Bootstrap 5 (CDN) para layout responsivo
+
+FormsModule (formulários template-driven)
+
 # Diagrama
 Angular (TaskForm, TaskList)
       |  HttpClient (services)
@@ -73,25 +108,6 @@ backend/
        └─ data.sql
 
 
--- 1) Paginação (DB2): ordenar por DATA_CRIACAO DESC, com OFFSET/FETCH
-SELECT T.*
-FROM TAREFA T
-ORDER BY T.DATA_CRIACAO DESC
-OFFSET 0 ROWS FETCH FIRST 10 ROWS ONLY;
-
--- 2) Join entre TAREFA e PROJETO
-SELECT T.ID, T.TITULO, T.STATUS, T.DATA_CRIACAO, P.NOME AS PROJETO
-FROM TAREFA T
-JOIN PROJETO P ON P.ID = T.ID_PROJETO
-ORDER BY T.DATA_CRIACAO DESC;
-
--- 3) Agrupamento por STATUS
-SELECT COALESCE(T.STATUS, 'SEM_STATUS') AS STATUS, COUNT(*) TOTAL
-FROM TAREFA T
-GROUP BY COALESCE(T.STATUS, 'SEM_STATUS')
-ORDER BY TOTAL DESC;
-
-
 # Gestão de Tarefas — Java (Spring Boot) + H2 (DB2) + Angular
 
 ## Requisitos
@@ -126,24 +142,34 @@ DELETE /tarefas/{id}
 
 GET /tarefas?page=0&size=10&idProjeto=1 (ordenado por dataCriacao DESC)
 
-Frontend
+## Frontend
 cd frontend
 npm install
 npm start
 App em http://localhost:4200
 
+
+# Parte 3 – Banco de Dados (H2 com sintaxe DB2) 
 SQL (compatível DB2)
 
--- Paginação
-SELECT T.* FROM TAREFA T ORDER BY T.DATA_CRIACAO DESC
+-- 1) Paginação (DB2): ordenar por DATA_CRIACAO DESC, com OFFSET/FETCH
+SELECT T.*
+FROM TAREFA T
+ORDER BY T.DATA_CRIACAO DESC
 OFFSET 0 ROWS FETCH FIRST 10 ROWS ONLY;
 
--- Join
-SELECT T.ID, T.TITULO, T.STATUS, T.DATA_CRIACAO, P.NOME PROJETO
-FROM TAREFA T JOIN PROJETO P ON P.ID = T.ID_PROJETO;
+-- 2) Join entre TAREFA e PROJETO
+SELECT T.ID, T.TITULO, T.STATUS, T.DATA_CRIACAO, P.NOME AS PROJETO
+FROM TAREFA T
+JOIN PROJETO P ON P.ID = T.ID_PROJETO
+ORDER BY T.DATA_CRIACAO DESC;
 
--- Agrupamento por STATUS
-SELECT COALESCE(T.STATUS, 'SEM_STATUS') STATUS, COUNT(*) TOTAL
-FROM TAREFA T GROUP BY COALESCE(T.STATUS, 'SEM_STATUS');
+-- 3) Agrupamento por STATUS
+SELECT COALESCE(T.STATUS, 'SEM_STATUS') AS STATUS, COUNT(*) TOTAL
+FROM TAREFA T
+GROUP BY COALESCE(T.STATUS, 'SEM_STATUS')
+ORDER BY TOTAL DESC;
 
+ # Parte 4 – Experiência com Flex (teórica)
 
+ Sim, tive contato com Adobe Flex/ActionScript em um sistema legado, principalmente para dar manutenção em módulos existentes e apoiar a migração para outra tecnologia. Embora não tenha desenvolvido do zero em Flex, conheci bem seu funcionamento e participei do processo de transição.
