@@ -1,175 +1,124 @@
-# bip-sicoob
-Teste_Tecnico_JAVA_Angular_DB2
+# 🧩 Teste Técnico – Java + Angular + DB2
 
-# Tecnologias utilizadas
-## Backend (Java + Spring Boot)
+## 🎯 Objetivo
 
-Java 17
+Avaliar as habilidades práticas em:
 
-Spring Boot 3.3.x
+- Desenvolvimento backend com **Java + Spring Boot**
+- Banco **H2** com sintaxe compatível com **DB2**
+- Desenvolvimento frontend com **Angular**
+- Conhecimento prático em **SQL** (joins, paginação, agrupamento)
+- Experiência teórica com **Adobe Flex**
 
-Spring Web (REST API)
+---
 
-Spring Data JPA (persistência)
+## 💡 Desafio
 
-Spring Validation (Bean Validation)
+Desenvolver um sistema de **Gestão de Tarefas** com as seguintes funcionalidades:
 
-H2 Database em memória com MODE=DB2 (simulação compatível com DB2)
+- Cadastrar tarefas associadas a projetos  
+- Listar tarefas com **paginação**, **filtro por projeto** e **ordenação por data**  
+- Excluir tarefas  
 
-Lombok (redução de boilerplate)
+---
 
-Swagger / Springdoc OpenAPI (documentação e testes da API)
+## 🗂️ Modelagem de Dados
 
-Maven (build e dependências)
+### Tabela `PROJETO`
+| Campo | Tipo | Descrição |
+|--------|------|-----------|
+| ID | PK | Identificador único |
+| NOME | VARCHAR | Nome do projeto (**obrigatório**) |
 
-## Frontend (Angular)
+### Tabela `TAREFA`
+| Campo | Tipo | Descrição |
+|--------|------|-----------|
+| ID | PK | Identificador único |
+| TITULO | VARCHAR | Título da tarefa (**obrigatório**) |
+| DESCRICAO | VARCHAR | Descrição da tarefa (opcional) |
+| STATUS | VARCHAR | Ex: "Aberta", "Concluída", etc. |
+| DATA_CRIACAO | DATE | Data de criação |
+| ID_PROJETO | FK | Referência à tabela `PROJETO` |
 
-Angular 16 (standalone components, moderno)
+---
 
-TypeScript 5.x
+## 🖥️ Parte 1 – Backend (Java + Spring Boot)
 
-RxJS (requisições assíncronas e streams)
+### Endpoints REST
 
-Angular HttpClient (consumo da API REST)
+| Método | Endpoint | Descrição |
+|---------|-----------|-----------|
+| `POST` | `/tarefas` | Cadastrar nova tarefa |
+| `DELETE` | `/tarefas/{id}` | Excluir tarefa existente |
+| `GET` | `/tarefas` | Listar tarefas com paginação, filtro e ordenação |
 
-Bootstrap 5 (CDN) para layout responsivo
+**Requisitos técnicos:**
+- Usar **Spring Data JPA**
+- Banco **H2** com script compatível com **DB2**
+- Arquivos `schema.sql` e `data.sql` contendo pelo menos **2 projetos** e **15 tarefas**
 
-FormsModule (formulários template-driven)
+---
 
-# Diagrama
-Angular (TaskForm, TaskList)
-      |  HttpClient (services)
-      v
-REST API (Spring Boot)
-  - TarefaController / ProjetoController
-  - TarefaService
-  - TarefaRepository / ProjetoRepository (Spring Data JPA)
-      |
-      v
-H2 (MODE=DB2)  <-- schema.sql / data.sql
+## 💻 Parte 2 – Frontend (Angular)
 
-# Frontend — Angular
-# Estrutura (Angular 16+/TypeScript)
+Criar uma aplicação Angular com os seguintes elementos:
 
-frontend/
- ├─ package.json
- ├─ angular.json
- └─ src/
-    ├─ main.ts
-    ├─ index.html
-    ├─ styles.css
-    └─ app/
-       ├─ app.module.ts
-       ├─ app.component.ts
-       ├─ app.component.html
-       ├─ models/
-       │  ├─ projeto.model.ts
-       │  └─ tarefa.model.ts
-       ├─ services/
-       │  ├─ api.config.ts
-       │  ├─ project.service.ts
-       │  └─ task.service.ts
-       ├─ components/
-       │  ├─ task-form/
-       │  │  ├─ task-form.component.ts
-       │  │  └─ task-form.component.html
-       │  └─ task-list/
-       │     ├─ task-list.component.ts
-       │     └─ task-list.component.html
-       └─ environments/
-          ├─ environment.ts
-          └─ environment.development.ts
+- **Formulário** para cadastrar tarefas (incluindo seleção de projeto)
+- **Grid de listagem** com:
+  - Paginação
+  - Filtro por projeto
+  - Botão de exclusão
 
+A aplicação deve **consumir a API REST** criada na Parte 1.
 
-# Backend — Java + Spring Boot
-# Estrutura (Maven / Java 17)
+---
 
-backend/
- ├─ pom.xml
- └─ src/
-    ├─ main/java/com/example/todo/
-    │  ├─ TodoApplication.java
-    │  ├─ domain/
-    │  │  ├─ Projeto.java
-    │  │  └─ Tarefa.java
-    │  ├─ dto/
-    │  │  └─ TarefaRequest.java
-    │  ├─ repository/
-    │  │  ├─ ProjetoRepository.java
-    │  │  └─ TarefaRepository.java
-    │  ├─ service/
-    │  │  └─ TarefaService.java
-    │  └─ controller/
-    │     ├─ ProjetoController.java
-    │     └─ TarefaController.java
-    └─ main/resources/
-       ├─ application.properties
-       ├─ schema.sql
-       └─ data.sql
+## 🗃️ Parte 3 – Banco de Dados (H2 com sintaxe DB2)
 
+Incluir no projeto:
 
-# Gestão de Tarefas — Java (Spring Boot) + H2 (DB2) + Angular
+- `schema.sql` e `data.sql` com criação e carga inicial de dados  
+- **3 consultas SQL** de exemplo demonstrando:
+  1. Paginação  
+  2. Join entre `TAREFA` e `PROJETO`  
+  3. Agrupamento por `STATUS`
 
-## Requisitos
-- Java 17
-- Maven 3.9+
-- Node 18+ e Angular CLI 16+ (`npm i -g @angular/cli`)
+---
 
-## Como executar
+## 📚 Parte 4 – Experiência com Adobe Flex (teórica)
 
-### Backend
-```bash
-cd backend
-mvn spring-boot:run
+Responder no `README.md` ou em arquivo separado:
 
-API em http://localhost:8080
+1. Já trabalhou com Adobe Flex/ActionScript? Quando e em que contexto?  
+2. Quais tipos de aplicações você desenvolveu?  
+3. Você se considera apto a dar manutenção em sistemas legados em Flex?  
 
-Swagger UI: http://localhost:8080/swagger-ui/index.html
+---
 
-H2 Console: http://localhost:8080/h2-console
+## 🚀 Entrega
 
-JDBC URL: jdbc:h2:mem:todo_db;MODE=DB2;DATABASE_TO_UPPER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+- Submeter o projeto via **GitHub** (preferencial) ou link compartilhável (ZIP)  
+- Incluir neste repositório:
+  - Instruções para rodar **backend** e **frontend**
+  - Tecnologias utilizadas
+  - Respostas da **Parte 4**
 
-user: sa (sem senha)
+**Prazo sugerido:** até **2 dias úteis**
 
-Endpoints:
+---
 
-GET /projetos
+## ✅ Critérios de Avaliação
 
-POST /tarefas (body: { "titulo": "...", "descricao": "...", "status": "Aberta", "idProjeto": 1 })
+| Critério | Peso |
+|-----------|------|
+| Organização e estrutura do código | Médio |
+| Boas práticas e clareza | Alto |
+| Funcionamento da aplicação | Alto |
+| Cumprimento dos requisitos | Alto |
+| Qualidade da modelagem e API | Médio |
+| Experiência com Flex (descrição) | Baixo |
 
-DELETE /tarefas/{id}
+---
 
-GET /tarefas?page=0&size=10&idProjeto=1 (ordenado por dataCriacao DESC)
+---
 
-## Frontend
-cd frontend
-npm install
-npm start
-App em http://localhost:4200
-
-
-# Parte 3 – Banco de Dados (H2 com sintaxe DB2) 
-SQL (compatível DB2)
-
--- 1) Paginação (DB2): ordenar por DATA_CRIACAO DESC, com OFFSET/FETCH
-SELECT T.*
-FROM TAREFA T
-ORDER BY T.DATA_CRIACAO DESC
-OFFSET 0 ROWS FETCH FIRST 10 ROWS ONLY;
-
--- 2) Join entre TAREFA e PROJETO
-SELECT T.ID, T.TITULO, T.STATUS, T.DATA_CRIACAO, P.NOME AS PROJETO
-FROM TAREFA T
-JOIN PROJETO P ON P.ID = T.ID_PROJETO
-ORDER BY T.DATA_CRIACAO DESC;
-
--- 3) Agrupamento por STATUS
-SELECT COALESCE(T.STATUS, 'SEM_STATUS') AS STATUS, COUNT(*) TOTAL
-FROM TAREFA T
-GROUP BY COALESCE(T.STATUS, 'SEM_STATUS')
-ORDER BY TOTAL DESC;
-
- # Parte 4 – Experiência com Flex (teórica)
-
- Sim, tive contato com Adobe Flex/ActionScript em um sistema legado, principalmente para dar manutenção em módulos existentes e apoiar a migração para outra tecnologia. Embora não tenha desenvolvido do zero em Flex, conheci bem seu funcionamento e participei do processo de transição.
